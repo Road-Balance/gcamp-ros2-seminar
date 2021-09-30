@@ -44,3 +44,15 @@ fi
 git clone https://github.com/jetsonhacksnano/installSwapfile
 cd installSwapfile
 ./installSwapfile.sh
+
+echo -e "${GREEN}==== Installing Terminator ====${NC}"
+
+sudo apt install terminator -y
+
+echo -e "${GREEN}==== Useful Aliases Setup ====${NC}"
+
+echo -e "alias eb='gedit ~/.bashrc'" | sudo tee -a ~/.bashrc
+echo -e "alias sb='source ~/.bashrc'" | sudo tee -a ~/.bashrc
+echo -e "alias cba='colcon build --symlink-install'" | sudo tee -a ~/.bashrc
+echo -e "alias cbp='colcon build --symlink-install --packages-select'" | sudo tee -a ~/.bashrc
+echo -e "alias roseloq='source /opt/ros/eloquent/setup.bash && source ~/ros2_seminar_ws/install/local_setup.bash'" | sudo tee -a ~/.bashrc
