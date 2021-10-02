@@ -5,19 +5,15 @@ from rclpy.node import Node
 
 count = 0
 
-def timer_callback():
-    global count
-    count += 1
-    print(f"==== Hello ROS 2 : {count}====")
-
+class NodeClass(Node):
+    def __init__(self):
+        super().__init__("node_name")
 
 def main(args=None):
     rclpy.init(args=args)
 
-    node = Node("node_name")
-    node.create_timer(0.2, timer_callback)
-    rclpy.spin(node)
-
+    node = NodeClass()
+    node.get_logger().info('\n==== Hello ROS 2 ====')
     node.destroy_node()
     
     rclpy.shutdown()

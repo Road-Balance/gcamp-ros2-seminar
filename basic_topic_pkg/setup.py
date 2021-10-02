@@ -20,7 +20,14 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'example_node_1 = basic_topic_pkg.node_example_1:main'
+            'example_node_1 = basic_topic_pkg.node_example_1:main',
+            'example_node_2 = basic_topic_pkg.node_example_2:main',
+            'example_node_3 = basic_topic_pkg.node_example_3:main',
+            'example_node_4 = basic_topic_pkg.node_example_4:main',
+            'example_node_5 = basic_topic_pkg.node_example_5:main',
+            'example_node_6 = basic_topic_pkg.node_example_6:main',
+            'topic_node_1   = basic_topic_pkg.topic_example_1:main',
+            'topic_node_2   = basic_topic_pkg.topic_example_2:main'
         ],
     },
 )
