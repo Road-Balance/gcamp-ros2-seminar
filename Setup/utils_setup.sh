@@ -45,6 +45,19 @@ git clone https://github.com/jetsonhacksnano/installSwapfile
 cd installSwapfile
 ./installSwapfile.sh
 
+echo -e "${GREEN}==== Installing LXDE Setup ====${NC}"
+
+cd ~/Downloads
+if [ -d ./installLXDE ]
+then
+	echo -e "${RED} delete exist folder ${NC}"
+	rm -rf installLXDE
+fi
+
+git clone https://github.com/jetsonhacks/installLXDE.git
+cd installLXDE
+./installLXDE.sh
+
 echo -e "${GREEN}==== Installing Terminator ====${NC}"
 
 sudo apt install terminator -y
