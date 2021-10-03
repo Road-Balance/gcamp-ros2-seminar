@@ -69,3 +69,6 @@ echo -e "alias sb='source ~/.bashrc'" | sudo tee -a ~/.bashrc
 echo -e "alias cba='colcon build --symlink-install'" | sudo tee -a ~/.bashrc
 echo -e "alias cbp='colcon build --symlink-install --packages-select'" | sudo tee -a ~/.bashrc
 echo -e "alias roseloq='source /opt/ros/eloquent/setup.bash && source ~/ros2_seminar_ws/install/local_setup.bash'" | sudo tee -a ~/.bashrc
+echo -e "source /usr/share/colcon_cd/function/colcon_cd.sh" | sudo tee -a ~/.bashrc
+echo -e "export _colcon_cd_root=~/ros2_seminar_ws" | sudo tee -a ~/.bashrc
+
