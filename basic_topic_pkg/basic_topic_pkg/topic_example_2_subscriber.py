@@ -21,9 +21,10 @@ Let's learn about those things.
 Create topic subscriber then check the value from that with ros2 command line tools.
 Listen to pose of turtle in the turtlesim.
 """
-from turtlesim.msg import Pose
 import rclpy
 from rclpy.node import Node
+from turtlesim.msg import Pose
+
 
 class TurtlePoseSubNode(Node):
     """turtlesim/Pose msg Subscriber Node.
@@ -40,12 +41,11 @@ class TurtlePoseSubNode(Node):
         super().__init__('turtlepose_sub_node')
 
         queue_size = 10  # Queue Size
-        
         # You can create subscriber with create_subscription function
         # this function get those params
-        # 
+        #
         # msg type, topic name, callback function, queue_size
-        #  
+        #
         # topic name must exists and coincident with exact topic name
         self.pose_subscriber = self.create_subscription(
             Pose, 'turtle1/pose', self.sub_callback, queue_size
