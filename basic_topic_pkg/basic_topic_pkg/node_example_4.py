@@ -24,9 +24,6 @@ import rclpy
 from rclpy.node import Node
 
 
-count = 0
-
-
 class NodeClass(Node):
     """Our First Node Class.
 
@@ -47,6 +44,7 @@ def main(args=None):
     rclpy.init(args=args)
 
     node = NodeClass()
+    # node2 = NodeClass()
     node.get_logger().info('\n==== Hello ROS 2 ====')
     node.destroy_node()
 

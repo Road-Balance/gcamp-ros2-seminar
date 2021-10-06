@@ -24,9 +24,6 @@ import rclpy
 from rclpy.node import Node
 
 
-count = 0
-
-
 class NodeClass(Node):
     """Third Node Class.
 
@@ -47,6 +44,7 @@ class NodeClass(Node):
         """Timer will run this function periodically."""
         # There're 5 logger-level in ROS 2 get_logger() System.
         # Try out and watch whats difference.
+        self.get_logger().debug(f'==== Hello ROS 2 : {self.count}====')
         self.get_logger().info(f'==== Hello ROS 2 : {self.count}====')
         self.get_logger().warn(f'==== Hello ROS 2 : {self.count}====')
         self.get_logger().error(f'==== Hello ROS 2 : {self.count}====')

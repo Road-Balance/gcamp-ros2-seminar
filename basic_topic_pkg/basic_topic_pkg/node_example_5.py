@@ -24,9 +24,6 @@ import rclpy
 from rclpy.node import Node
 
 
-count = 0
-
-
 class NodeClass(Node):
     """Second Node Class.
 

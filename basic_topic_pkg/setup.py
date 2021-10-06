@@ -26,9 +26,9 @@ setup(
             'example_node_4 = basic_topic_pkg.node_example_4:main',
             'example_node_5 = basic_topic_pkg.node_example_5:main',
             'example_node_6 = basic_topic_pkg.node_example_6:main',
-            'topic_node_1   = basic_topic_pkg.topic_example_1_publisher:main',
-            'topic_node_2   = basic_topic_pkg.topic_example_2_subscriber:main',
-            'topic_node_3   = basic_topic_pkg.topic_example_3_pub_and_sub:main'
+            'topic_pub_node = basic_topic_pkg.topic_example_1_publisher:main',
+            'topic_sub_node = basic_topic_pkg.topic_example_2_subscriber:main',
+            'topic_pub_sub_node = basic_topic_pkg.topic_example_3_pub_and_sub:main'
         ],
     },
 )

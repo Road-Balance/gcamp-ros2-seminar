@@ -45,7 +45,7 @@ def main(args=None):
     node.create_timer(0.2, timer_callback)
 
     while True:
-        rclpy.spin_once(node)
+        rclpy.spin_once(node, timeout_sec=10)
 
     node.destroy_node()
 
