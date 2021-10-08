@@ -79,13 +79,13 @@ class KeyBoardRCController(Node):
     """Get KB input and parse into ROS 2 Control Msg Type."""
 
     DEFAULT_THROTTLE_VAL = 350
-    DEFAULT_STEERING_VAL = 350
+    DEFAULT_STEERING_VAL = 380
 
-    ROSCAR_MAX_ACCELL_VEL = 400
-    ROSCAR_MAX_STEERING_VEL = 400
+    ROSCAR_MAX_ACCELL_VEL = 420
+    ROSCAR_MAX_STEERING_VEL = 430
 
-    ROSCAR_MIN_ACCELL_VEL = 200
-    ROSCAR_MIN_STEERING_VEL = 200
+    ROSCAR_MIN_ACCELL_VEL = 320
+    ROSCAR_MIN_STEERING_VEL = 300
 
     def __init__(self):
         """
