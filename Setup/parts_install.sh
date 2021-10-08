@@ -10,16 +10,13 @@ sudo usermod -aG i2c $USER
 sudo udevadm control --reload-rules && sudo udevadm trigger
 sudo apt-get update
 sudo apt install python3-pip python3-pil -y
-# Install the Adafruit library for the SSD1306 OLED driver
-# Note that Adafruit-SSD1306 library is deprecated; newer versions of
-# the library use CircuitPython
-pip3 install Adafruit-SSD1306
+# Install the Adafruit library for the PCA9685 I2C Motor driver
+pip3 install Adafruit_PCA9685
 
-pip3 install Adafruit_MotorHat
 pip3 install setuptools
 pip3 install wheel
 
 pip3 install -U wstool
 
-# We should be able to access the PiOLED now
+# We should be able to access the PCA9685 now
 # Note that we may have to reboot for the i2c change to take effect
