@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'rc_control_node   = rccontrol_bringup.rc_control:main',
+            'kb_control_node   = rccontrol_bringup.kb_control:main'
         ],
     },
 )
