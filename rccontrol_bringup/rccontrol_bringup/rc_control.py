@@ -104,7 +104,7 @@ class RCSignalSub(Node):
         self.get_logger().info('Steering Controller Awaked!!')
 
         self._subscriber = self.create_subscription(
-            RCControl, 'spider_control', self.sub_callback, queue_size
+            RCControl, 'rc_control', self.sub_callback, queue_size
         )
         self._subscriber  # prevent unused variable warning
 
