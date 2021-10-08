@@ -14,11 +14,10 @@
 
 
 """
-This is an third example code for ROS 2 rclpy node programming.
+Control DC Motor Based RC Car with I2C PWM motor Driver PCA9685.
 
-Let's learn about those things.
-
-Implement Example 3 with ROS 2 Node Composition.
+Ordinary RC Car has two PWN Channel (Throttle/Steering).
+So RCSignalSub subscribe custom RCControl msg then deliver that values into Motor Driver.
 """
 import time
 

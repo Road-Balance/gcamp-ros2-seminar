@@ -1,8 +1,35 @@
+# Copyright 2021 @RoadBalance
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+"""
+KeyBoard Based RC Control Node.
+
+Before Running this node, you must calibrate your hardware with rqt_rc_steering GUI.
+Then, Put your values into KeyBoardRCController's Class Variables.
+
+While Running this node, Keyboard inputs will be mapped into RCControl,
+and then published through /rc_control topic.
+"""
+import select
+import sys
+import termios
+import tty
+
 from rccontrol_msgs.msg import RCControl
 import rclpy
 from rclpy.node import Node
-
-import sys, select, termios, tty
 
 
 msg = """
@@ -29,7 +56,13 @@ Communications Failed
 
 settings = termios.tcgetattr(sys.stdin)
 
+
 def getKey():
+    """
+    Run every Keyboard Interrupts.
+
+    Parse KB value into readable "str" type
+    """
     tty.setraw(sys.stdin.fileno())
     rlist, _, _ = select.select([sys.stdin], [], [], 0.1)
 
@@ -43,6 +76,7 @@ def getKey():
 
 
 class KeyBoardRCController(Node):
+    """Get KB input and parse into ROS 2 Control Msg Type."""
 
     DEFAULT_THROTTLE_VAL = 350
     DEFAULT_STEERING_VAL = 350
@@ -54,71 +88,89 @@ class KeyBoardRCController(Node):
     ROSCAR_MIN_STEERING_VEL = 200
 
     def __init__(self):
+        """
+        Create KeyBoard value parsing loop with 0.05s periods.
+
+        Fill in Custom ROS 2 Topic Msg Type (=RCControl) with KB inputs,
+        then publisher them through /rc_control topic.
+        """
         super().__init__('keyboard_rc_control_node')
 
         self._status = 0
-        
-        self._valid_key_list = ['w','a','s','d',' ','x']
+
+        self._valid_key_list = ['w', 'a', 's', 'd', ' ', 'x']
         self._value_dict = {
-            "throttle" : self.DEFAULT_THROTTLE_VAL,
-            "steering" : self.DEFAULT_STEERING_VAL,
+            'throttle': self.DEFAULT_THROTTLE_VAL,
+            'steering': self.DEFAULT_STEERING_VAL,
         }
-        
+
         self._publisher = self.create_publisher(RCControl, 'rc_control', 10)
         self.create_timer(0.05, self.timer_callback)
 
         self._pub_msg = RCControl()
-        
+
         print(msg)
 
     def publishMsg(self):
-        throttle = self._value_dict["throttle"]
-        steering = self._value_dict["steering"]
+        """Publish ROS 2 topic, Run this in every loops."""
+        throttle = self._value_dict['throttle']
+        steering = self._value_dict['steering']
 
-        print(f"currently:\taccell vel {throttle}\t steering vel {steering}")
+        print(f'currently:\taccell vel {throttle}\t steering vel {steering}')
 
-        self._pub_msg.throttle = self._value_dict["throttle"]
-        self._pub_msg.steering = self._value_dict["steering"]
+        self._pub_msg.throttle = self._value_dict['throttle']
+        self._pub_msg.steering = self._value_dict['steering']
 
         self._publisher.publish(self._pub_msg)
 
     def checkLimits(self):
-        self._value_dict["throttle"] = min(max(self.ROSCAR_MIN_ACCELL_VEL, self._value_dict["throttle"]), self.ROSCAR_MAX_ACCELL_VEL)
-        self._value_dict["steering"] = min(max(self.ROSCAR_MIN_STEERING_VEL, self._value_dict["steering"]), self.ROSCAR_MAX_STEERING_VEL)
+        """Control values should be in valid range."""
+        self._value_dict['throttle'] = min(
+            max(self.ROSCAR_MIN_ACCELL_VEL, self._value_dict['throttle']),
+            self.ROSCAR_MAX_ACCELL_VEL
+        )
+        self._value_dict['steering'] = min(
+            max(self.ROSCAR_MIN_STEERING_VEL, self._value_dict['steering']),
+            self.ROSCAR_MAX_STEERING_VEL
+        )
 
     def setThrottle(self, val):
-        self._value_dict["throttle"] += val
+        """Setter for throttle value. Do update Dict type Method Variable."""
+        self._value_dict['throttle'] += val
         self.checkLimits()
 
     def setSteering(self, val):
-        self._value_dict["steering"] += val
+        """Setter for steering value. Do update Dict type Method Variable."""
+        self._value_dict['steering'] += val
         self.checkLimits()
 
     def resetAllVal(self):
-        self._value_dict["throttle"] = self.DEFAULT_THROTTLE_VAL
-        self._value_dict["steering"] = self.DEFAULT_THROTTLE_VAL
+        """Reset All control values to initial one."""
+        self._value_dict['throttle'] = self.DEFAULT_THROTTLE_VAL
+        self._value_dict['steering'] = self.DEFAULT_THROTTLE_VAL
 
     def timer_callback(self):
+        """Get KB value then Run logic for increasing/decreasing control offset."""
         key = getKey()
         if key in self._valid_key_list:
             if key == 'w':
                 self.setThrottle(+1)
                 self.publishMsg()
-            elif key == 's' :
+            elif key == 's':
                 self.setThrottle(-1)
                 self.publishMsg()
-            elif key == 'a' :
+            elif key == 'a':
                 self.setSteering(-1)
                 self.publishMsg()
-            elif key == 'd' :
+            elif key == 'd':
                 self.setSteering(+1)
                 self.publishMsg()
-            elif key == ' ' or key == 's' :
+            elif key == ' ' or key == 's':
                 self.resetAllVal()
                 self.publishMsg()
         else:
             if (key == 'q'):
-                print("quit...")
+                print('quit...')
                 quit()
 
             self._status += 1
@@ -127,9 +179,9 @@ class KeyBoardRCController(Node):
             print(msg)
             self._status = 0
 
+
 def main(args=None):
     """Do enter into this main function first."""
-
     rclpy.init(args=args)
 
     kb_ctl_node = KeyBoardRCController()
@@ -143,6 +195,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     """main function"""
-
     main()
-
