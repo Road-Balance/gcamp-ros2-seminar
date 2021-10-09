@@ -41,15 +41,14 @@ Moving around:
 
 A\tS\tD
 
-\tX
-
-w/x : increase/decrease PWM throttle value
-a/d : increase/decrease PWM steering value
 
 space key : force stop
 
 "q" to quit
 """
+
+# w/x : increase/decrease PWM throttle value
+# a/d : increase/decrease PWM steering value
 
 e = """
 Communications Failed
@@ -106,7 +105,7 @@ class KeyBoardRCController(Node):
 
         self._status = 0
 
-        self._valid_key_list = ['w', 'a', 's', 'd', ' ', 'x']
+        self._valid_key_list = ['w', 'a', 's', 'd', ' ']
         self._value_dict = {
             'throttle': self.DEFAULT_THROTTLE_VAL,
             'steering': self.DEFAULT_STEERING_VAL,
