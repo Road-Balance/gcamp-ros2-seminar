@@ -28,7 +28,7 @@ There's 6 rclpy scripts for Node programming, And also 3 for Topic programming
 5. Node Composition with `create_timer`.
 6. ROS 2 Node logger level.
 
-How to Run
+**How to Run**
 ```
 ros2 run basic_topic_pkg example_node_<number>
 ```
@@ -39,7 +39,7 @@ Moreover, There's 3 rclpy scripts for ROS 2 Topic programming.
 2. Subscribe turtlesim's `pose` message and analize about message type.
 3. Small Project, Make `turtle2` mimic `turtle1` using publisher & subscriber both.
 
-How to Run
+**How to Run**
 ```
 ros2 run basic_topic_pkg topic_pub_node
 ros2 run basic_topic_pkg topic_sub_node
@@ -51,8 +51,16 @@ ros2 run basic_topic_pkg topic_pub_sub_node
 
 ## Setup - Hardware
 
+* ongoing
+
 ## Setup - Software
+
+* ongoing
 
 ## Run Examples
 
-###
+* ongoing
+
+### TODO
+
+- [ ] Fully support for Nav 2
