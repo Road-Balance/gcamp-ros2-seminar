@@ -55,11 +55,20 @@ ros2 run basic_topic_pkg topic_pub_sub_node
 # MaRo
 
 <p align="center">
-    <img src="./Images/Maro.png" height="300">
+    <img src="./Images/Maro.png" height="250">
+    <img src="./Images/Maro_ASM.png" height="250">
 </p>
 
 ## Setup - Hardware
 
+There's Full BOM for MaRo in `Parts` folder.
+And also you can find custom `stl`, `dxf` files in there.
+
+<p align="center">
+    <img src="./Images/Maro_BOM.png" height="180">
+</p>
+
+Lastly, Even there's Assembly Guide for MaRo. Please refer [this](https://puzzling-cashew-c4c.notion.site/a457025c8bb843b188a976b3189c3882) notion page.
 
 
 ## Setup - Software
@@ -80,8 +89,12 @@ Most of above scripts are referneced from [JetsonHacks](https://www.jetsonhacks.
 
 ## Run Examples
 
-* ongoing
+* RQT Control Plugin
+* 2D Lidar to odometry
+* 2D Lidar SLAM (slam_toolbox)
+* Autonomous Driving with `Nav 2`
 
 ### TODO
 
 - [ ] Fully support for Nav 2
+- 
