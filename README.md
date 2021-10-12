@@ -39,23 +39,44 @@ Moreover, There's 3 rclpy scripts for ROS 2 Topic programming.
 2. Subscribe turtlesim's `pose` message and analize about message type.
 3. Small Project, Make `turtle2` mimic `turtle1` using publisher & subscriber both.
 
+<p align="center">
+    <img src="./Images/turtle_mimic.gif" height="300">
+</p>
+
+
 **How to Run**
 ```
 ros2 run basic_topic_pkg topic_pub_node
 ros2 run basic_topic_pkg topic_sub_node
 ros2 run basic_topic_pkg topic_pub_sub_node
 ```
-## MaRo
 
-* picture
+---
+# MaRo
+
+<p align="center">
+    <img src="./Images/Maro.png" height="300">
+</p>
 
 ## Setup - Hardware
 
-* ongoing
+
 
 ## Setup - Software
 
-* ongoing
+All Setups are prepared through shell scripts.
+Just Run that 😁
+
+Shell Scripts in `Setup` Folder
+* `ai_demo_setup.sh` => Install prerequisites for ROS 2 Deep Learning Node 
+* `parts_install.sh` => Install python3 packages control RC Car 
+* `ros2_setup.sh` => Install ROS 2 onto Jetpack 4.6 
+* `utils_setup.sh` => Install few usefull utilities / Setup aliases for developing
+* `vscode_install.sh` => Install VSCode for Jetpack 4.6 
+
+Most of above scripts are referneced from [JetsonHacks](https://www.jetsonhacks.com/)
+
+> Always Thank you, Mr. Jim !!
 
 ## Run Examples
 
