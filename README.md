@@ -17,7 +17,7 @@ This Repo contains mainly two parts.
 * ROS 2 Basic & `rclpy`  Programming Examples => *basic_topic_pkg*
 * ROS 2 autonomous Robot based on Popular RC Car => *MaRo*
 
-### 1) ROS 2 Basic Programming0
+### 1) ROS 2 Basic Programming
 
 There's 6 rclpy scripts for Node programming, And also 3 for Topic programming
 
@@ -52,7 +52,7 @@ ros2 run basic_topic_pkg topic_pub_sub_node
 ```
 
 ---
-# MaRo
+### 2) ROS 2 autonomous Robot - MaRo 
 
 <p align="center">
     <img src="./Images/MaRo.png" height="250">
@@ -89,10 +89,21 @@ Most of above scripts are referneced from [JetsonHacks](https://www.jetsonhacks.
 
 ## Run Examples
 
-* RQT Control Plugin
-* 2D Lidar to odometry
-* 2D Lidar SLAM (slam_toolbox)
-* Autonomous Driving with `Nav 2`
+There's mainly 4 ROS 2 applications for MaRo. All packages are prepared for autonomous driving.
+
+1. RQT Control Plugin for MaRo
+2. 2D Lidar to odometry
+3. 2D Lidar SLAM (slam_toolbox)
+4. Autonomous Driving with `Nav 2`
+
+### RQT Control Plugin for MaRo
+
+<p align="center">
+    <img src="./Images/rqt_plugin.png" height="250">
+</p>
+
+Based on rqt_robot_steering plugin, I recreated that for MaRo.
+
 
 ### TODO
 
