@@ -105,6 +105,11 @@ There's mainly 4 ROS 2 applications for MaRo. All packages are prepared for auto
 Based on rqt_robot_steering plugin, I recreated that for MaRo.
 
 
+### myAHRS+ ROS 2 package
+
+
+* this package is referenced from [CLOBOT-Co-Ltd](https://github.com/CLOBOT-Co-Ltd/myahrs_ros2_driver)
+
 ### TODO
 
 - [ ] Fully support for Nav 2
