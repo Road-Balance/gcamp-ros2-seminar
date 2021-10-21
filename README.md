@@ -107,6 +107,9 @@ Based on rqt_robot_steering plugin, I recreated that for MaRo.
 
 ### myAHRS+ ROS 2 package
 
+<p align="center">
+    <img src="./Images/myAHRS+.png" height="250">
+</p>
 
 * this package is referenced from [CLOBOT-Co-Ltd](https://github.com/CLOBOT-Co-Ltd/myahrs_ros2_driver)
 
