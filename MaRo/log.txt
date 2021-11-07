@@ -1,0 +1,66 @@
+ros2 launch ros_deep_learning video_viewer.ros2.launch input:=/dev/video0 output:=display://0 input_latency:=0
+
+ros2 launch ros_deep_learning video_viewer.ros2.launch input:=csi://0 output:=display://0 input_latency:=0
+
+ros2 launch ros_deep_learning video_viewer.ros2.launch input:=csi://0 input_latency:=0
+
+
+ros2 launch ros_deep_learning imagenet.ros2.launch \
+    input:=csi://0 output:=display://0 input_latency:=0
+
+ros2 launch ros_deep_learning detectnet.ros2.launch input:=csi://0 output:=display://0 input_latency:=0
+
+
+[imagenet-2] [INFO] [imagenet]: classified image, 0.554688 wardrobe, closet, press (class=894)
+[imagenet-2] class 0493 - 0.022903  (chiffonier, commode)
+s
+
+ros2 run rplidar_ros rplidarNode
+ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0  world laser_frame  
+rviz2 ./install/rplidar_ros/share/rplidar_ros/rviz/rplidar.rviz
+
+> node_executable edit
+> base_footprint edit
+
+ros2 run rplidar_ros rplidarNode
+ros2 launch rf2o_laser_odometry rf2o_laser_odometry.launch.py
+ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base_footprint laser_frame  
+
+sudo apt-get install ros-eloquent-slam-toolbox
+https://github.com/youngday/rplidar_ros2/blob/ros2/rplidar_A1.png
+
+ros2 launch slam_toolbox online_async_launch.py
+
+sudo apt-get install ros-eloquent-camera-info-manager -y
+sudo apt-get install ros-eloquent-teleop-twist-keyboard -y
+
+ros2 run rccontrol_bringup rc_control_node
+[INFO] [rc_control_node]: Throttle Controller Awaked!!
+[INFO] [rc_control_node]: Steering Controller Awaked!!
+
+ros2 run rqt_rc_steering rqt_rc_calibration 
+ros2 run rccontrol_bringup kb_control_node
+
+
+$ ros2 topic list
+/parameter_events
+/rc_control
+/rosout
+
+$ ros2 node list
+/rc_control_node
+
+$ ros2 topic info /rc_control
+Type: rccontrol_msgs/msg/RCControl
+Publisher count: 0
+Subscriber count: 1
+
+$ ros2 interface show rccontrol_msgs/msg/RCControl
+int32 throttle
+int32 steering
+
+
+
+
+
+
