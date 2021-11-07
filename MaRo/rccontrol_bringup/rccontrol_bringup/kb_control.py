@@ -26,6 +26,7 @@ import select
 import sys
 import termios
 import tty
+import time
 
 from rccontrol_msgs.msg import RCControl
 import rclpy
@@ -40,15 +41,14 @@ Moving around:
 
 A\tS\tD
 
-\tX
-
-w/x : increase/decrease PWM throttle value
-a/d : increase/decrease PWM steering value
 
 space key : force stop
 
 "q" to quit
 """
+
+# w/x : increase/decrease PWM throttle value
+# a/d : increase/decrease PWM steering value
 
 e = """
 Communications Failed
@@ -78,14 +78,21 @@ def getKey():
 class KeyBoardRCController(Node):
     """Get KB input and parse into ROS 2 Control Msg Type."""
 
+    
     DEFAULT_THROTTLE_VAL = 350
     DEFAULT_STEERING_VAL = 380
 
-    ROSCAR_MAX_ACCELL_VEL = 420
-    ROSCAR_MAX_STEERING_VEL = 430
+    MAX_ACCELL_VEL = 420
+    MIN_ACCELL_VEL = 300
 
-    ROSCAR_MIN_ACCELL_VEL = 320
-    ROSCAR_MIN_STEERING_VEL = 300
+    MAX_STEERING_VEL = 430
+    MIN_STEERING_VEL = 300
+
+    FORWARD_VEL = 381
+    BACKWARD_VEL = 320
+
+    LEFT_VEL = 300
+    RIGHT_VEL = 430
 
     def __init__(self):
         """
@@ -98,7 +105,7 @@ class KeyBoardRCController(Node):
 
         self._status = 0
 
-        self._valid_key_list = ['w', 'a', 's', 'd', ' ', 'x']
+        self._valid_key_list = ['w', 'a', 's', 'd', ' ']
         self._value_dict = {
             'throttle': self.DEFAULT_THROTTLE_VAL,
             'steering': self.DEFAULT_STEERING_VAL,
@@ -126,17 +133,17 @@ class KeyBoardRCController(Node):
     def checkLimits(self):
         """Control values should be in valid range."""
         self._value_dict['throttle'] = min(
-            max(self.ROSCAR_MIN_ACCELL_VEL, self._value_dict['throttle']),
-            self.ROSCAR_MAX_ACCELL_VEL
+            max(self.MIN_ACCELL_VEL, self._value_dict['throttle']),
+            self.MAX_ACCELL_VEL
         )
         self._value_dict['steering'] = min(
-            max(self.ROSCAR_MIN_STEERING_VEL, self._value_dict['steering']),
-            self.ROSCAR_MAX_STEERING_VEL
+            max(self.MIN_STEERING_VEL, self._value_dict['steering']),
+            self.MAX_STEERING_VEL
         )
 
     def setThrottle(self, val):
         """Setter for throttle value. Do update Dict type Method Variable."""
-        self._value_dict['throttle'] += val
+        self._value_dict['throttle'] = val
         self.checkLimits()
 
     def setSteering(self, val):
@@ -144,26 +151,50 @@ class KeyBoardRCController(Node):
         self._value_dict['steering'] += val
         self.checkLimits()
 
+    def setLeft(self):
+        current_steering = self._value_dict['steering']
+        for i in range(current_steering, self.LEFT_VEL - 1, -1):
+            self._value_dict['steering'] = i
+            self.publishMsg()
+
+    def setRight(self):
+        current_steering = self._value_dict['steering']
+        for i in range(current_steering, self.RIGHT_VEL + 1, +1):
+            self._value_dict['steering'] = i
+            self.publishMsg()
+
     def resetAllVal(self):
         """Reset All control values to initial one."""
         self._value_dict['throttle'] = self.DEFAULT_THROTTLE_VAL
-        self._value_dict['steering'] = self.DEFAULT_THROTTLE_VAL
+        self._value_dict['steering'] = self.DEFAULT_STEERING_VAL
 
     def timer_callback(self):
         """Get KB value then Run logic for increasing/decreasing control offset."""
         key = getKey()
         if key in self._valid_key_list:
             if key == 'w':
-                self.setThrottle(+1)
+                self.setThrottle(self.FORWARD_VEL)
                 self.publishMsg()
             elif key == 's':
-                self.setThrottle(-1)
+                print("fuck")
+                for i in range(100):
+                    self.setThrottle(300)
+                    self.publishMsg()
+                # time.sleep(0.1)
+                for i in range(100):
+                    self.setThrottle(self.DEFAULT_THROTTLE_VAL)
+                    self.publishMsg()
+                # time.sleep(0.2)
+
+                self.setThrottle(self.BACKWARD_VEL)
                 self.publishMsg()
             elif key == 'a':
-                self.setSteering(-1)
+                # self.setLeft()
+                self.setSteering(+10)
                 self.publishMsg()
             elif key == 'd':
-                self.setSteering(+1)
+                # self.setRight()
+                self.setSteering(-10)
                 self.publishMsg()
             elif key == ' ' or key == 's':
                 self.resetAllVal()
