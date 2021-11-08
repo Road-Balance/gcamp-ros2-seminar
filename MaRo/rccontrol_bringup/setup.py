@@ -20,8 +20,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'rc_control_node   = rccontrol_bringup.rc_control:main',
-            'kb_control_node   = rccontrol_bringup.kb_control:main'
+            'rc_control_node  = rccontrol_bringup.rc_control:main',
+            'kb_control_node  = rccontrol_bringup.kb_control:main',
+            'joy_control_node = rccontrol_bringup.joy_control:main'
         ],
     },
 )
