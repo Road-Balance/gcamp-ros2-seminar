@@ -26,3 +26,53 @@ $ ros2 launch rf2o_laser_odometry rf2o_laser_odometry.launch.py
 $ ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base_footprint laser_frame  
 # 터미널 4
 $ rviz2
+
+
+$ cd /dev/input/
+rb-nano@rbnano-desktop:/dev/input$ ls
+by-id/    event0  event2  mice
+by-path/  event1  event3  mouse0
+
+sudo apt-get install ros-eloquent-joy -y
+
+ros2 run joy joy_node
+CATUTION => JoyStick with "X" mode
+
+$ ros2 topic list
+/joy
+/parameter_events
+/rosout
+
+$ ros2 topic echo /joy
+---
+header:
+  stamp:
+    sec: 1637026905
+    nanosec: 658863968
+  frame_id: joy
+axes:
+- -0.0
+- -0.0
+- 1.0
+- -0.0
+- -0.0
+- 0.0
+- -0.0
+- -0.0
+buttons:
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+- 0
+---
+
+ros2 run joy joy_node
+ros2 run rccontrol_bringup rc_control_node
+ros2 run rccontrol_bringup joy_control_node
