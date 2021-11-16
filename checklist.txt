@@ -1,0 +1,28 @@
+cbp roseloq
+cbp ros_deep_learning
+
+ros2 launch ros_deep_learning video_viewer.ros2.launch \
+    input:=csi://0 output:=display://0 input_latency:=0
+
+ros2 run basic_topic_pkg  example_node_2
+
+ros2 run rccontrol_bringup rc_control_node
+ros2 run rqt_rc_steering rqt_rc_calibration
+
+sudo chmod 777 /dev/ttyUSB0
+# 터미널 1 - Jetson
+ros2 run rplidar_ros rplidarNode
+# 터미널 2 - Jetson
+ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0  world laser_frame
+# 터미널 3 - Host
+rviz2
+
+
+# 터미널 1
+$ ros2 run rplidar_ros rplidarNode
+# 터미널 2
+$ ros2 launch rf2o_laser_odometry rf2o_laser_odometry.launch.py
+# 터미널 3
+$ ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base_footprint laser_frame  
+# 터미널 4
+$ rviz2
