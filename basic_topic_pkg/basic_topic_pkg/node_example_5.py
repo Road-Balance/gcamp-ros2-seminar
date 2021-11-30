@@ -35,7 +35,7 @@ class NodeClass(Node):
 
         You must type name of the node in inheritanced initializer.
         """
-        super().__init__('node_name')
+        super().__init__('composition_example_node')
         self.create_timer(0.2, self.timer_callback)
 
         self.count = 1
