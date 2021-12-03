@@ -47,7 +47,7 @@ sudo apt-get install ros-eloquent-turtlesim -y
 sudo apt-get install ros-eloquent-slam-toolbox -y
 sudo apt-get install ros-eloquent-camera-info-manager -y
 sudo apt-get install ros-eloquent-teleop-twist-keyboard -y
-sudo apt-get install python-rosdep
+sudo apt-get install python-rosdep -y
 
 echo -e "${GREEN}==== Create ROS 2 Workspace ====${NC}"
 mkdir -p ~/ros2_seminar_ws/src
