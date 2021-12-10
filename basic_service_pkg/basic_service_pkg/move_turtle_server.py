@@ -67,11 +67,12 @@ class TurtleCircleNode(Node):
         if request.data is True:
             # Move Turtle
             self.turtle_circle()
-        
+
         response.success = True
         response.message = "Turtle successfully drawed Circle"
 
         return response
+
 
 def main(args=None):
     rclpy.init(args=args)
