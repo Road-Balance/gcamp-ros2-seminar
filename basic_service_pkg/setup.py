@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'turtle_spawn_node = basic_service_pkg.turtle_spawn:main',
+            'turtle_spawn_client = basic_service_pkg.turtle_spawn:main',
+            'turtle_circle_server = basic_service_pkg.move_turtle_server:main',
         ],
     },
 )
