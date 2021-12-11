@@ -38,8 +38,6 @@ class TurtleCircleNode(Node):
         )
 
         self.twist_msg = Twist()
-        self.start_time = self.get_clock().now().to_msg().sec
-
         self.get_logger().info('==== Robot Turning Server Started, Waiting for Request ====')
 
     def turtle_circle(self):
