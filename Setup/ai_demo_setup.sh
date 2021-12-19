@@ -52,6 +52,7 @@ sudo apt-get install ros-eloquent-vision-msgs \
 
 echo -e "${GREEN}==== Clone & Build Package ====${NC}"
 
+source ~/.bashrc
 cd ~/ros2_seminar_ws/src
 if [ -d ./ros_deep_learning ]
 then
