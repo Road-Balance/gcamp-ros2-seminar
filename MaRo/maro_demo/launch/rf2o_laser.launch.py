@@ -4,6 +4,8 @@ from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
 from launch_ros.actions import Node
+from launch.actions import TimerAction
+from launch.event_handlers import OnProcessExit
 
 def generate_launch_description():
 
@@ -38,12 +40,12 @@ def generate_launch_description():
     static_transform_publisher = Node(
         package = "tf2_ros", 
         node_executable = "static_transform_publisher",
-        arguments = "0 0 0 0 0 0 world laser_frame".split()
+        arguments = "0 0 0 0 0 0 base_footprint laser_frame".split()
     )
 
     # Rviz with .rviz config
     pkg_path = os.path.join(get_package_share_directory('maro_demo'))
-    rviz_config_file = os.path.join(pkg_path, 'rviz', 'gazebo.rviz')
+    rviz_config_file = os.path.join(pkg_path, 'rviz', 'lidar_odom.rviz')
 
     rviz = Node(
         package='rviz2',
@@ -54,8 +56,11 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        TimerAction(
+            period=5.0,
+            actions=[rviz]
+        ),
         rplidar_node,
         rf2o_node,
         static_transform_publisher,
-        # rviz,
     ])
