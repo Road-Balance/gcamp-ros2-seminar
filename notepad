@@ -18,3 +18,12 @@ int32 steering
 ```
 ros2 pkg create --build-type ament_python rccontrol_bringup --dependencies rclpy rccontrol_msgs
 ```
+
+Available launch files
+
+```
+ros2 launch rccontrol_bringup rc_calib.launch.py
+ros2 launch maro_demo lidar_demo.launch.py
+ros2 launch maro_demo rf2o_laser.launch.py
+ros2 launch maro_demo slam_demo.launch.py
+```
