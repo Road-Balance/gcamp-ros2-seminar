@@ -6,6 +6,8 @@ from sensor_msgs.msg import Joy
 
 import rccontrol_bringup.Cablibration as calib
 
+# X mode
+
 class JoyControler(Node):
 
     def __init__(self):
