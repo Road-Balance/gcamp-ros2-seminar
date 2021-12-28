@@ -22,12 +22,17 @@ class JoyControler(Node):
         self.MAX_STEERING_VEL = calib.MAX_STEERING_VEL
         self.MIN_STEERING_VEL = calib.MIN_STEERING_VEL
 
+        self.create_timer(0.01, self.timer_callback)
 
         self._subscription = self.create_subscription(Joy, '/joy', self.joy_callback, 10)
         self._publisher = self.create_publisher(RCControl, 'rc_control', 10)
 
         self._pub_msg = RCControl()
         self._is_back = False
+
+    def timer_callback(self):
+
+        self._publisher.publish(self._pub_msg)
 
     def joy_callback(self, joy_msg):
 
@@ -42,11 +47,11 @@ class JoyControler(Node):
             if self._is_back == False:
                 for i in range(10):
                     self._pub_msg.throttle = self.DEFAULT_THROTTLE_VAL - 30
-                    self._publisher.publish(self._pub_msg)
+                    # self._publisher.publish(self._pub_msg)
 
                 for i in range(10):
                     self._pub_msg.throttle = self.DEFAULT_THROTTLE_VAL
-                    self._publisher.publish(self._pub_msg)
+                    # self._publisher.publish(self._pub_msg)
 
                 self._is_back = True
 
@@ -55,7 +60,7 @@ class JoyControler(Node):
         else:
             self._pub_msg.steering = int(self.DEFAULT_STEERING_VAL + joy_steering_val * (self.DEFAULT_STEERING_VAL - self.MIN_STEERING_VEL))
 
-        self._publisher.publish(self._pub_msg)
+        # self._publisher.publish(self._pub_msg)
 
 
     def publishMsg(self):
