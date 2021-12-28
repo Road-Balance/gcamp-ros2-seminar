@@ -29,8 +29,16 @@ class JoyControler(Node):
 
         self._pub_msg = RCControl()
         self._is_back = False
+        self._back_count = 0
 
     def timer_callback(self):
+
+        if self._back_count > 10:
+            self._back_count -= 1
+            self._pub_msg.throttle = self.DEFAULT_THROTTLE_VAL - 30
+        elif self._back_count > 0:
+            self._back_count -= 1
+            self._pub_msg.throttle = self.DEFAULT_THROTTLE_VAL
 
         self._publisher.publish(self._pub_msg)
 
@@ -45,23 +53,12 @@ class JoyControler(Node):
         else:
             self._pub_msg.throttle = int(self.DEFAULT_THROTTLE_VAL + joy_throttle_val * (self.DEFAULT_THROTTLE_VAL - self.MIN_ACCELL_VEL))
             if self._is_back == False:
-                for i in range(10):
-                    self._pub_msg.throttle = self.DEFAULT_THROTTLE_VAL - 30
-                    # self._publisher.publish(self._pub_msg)
-
-                for i in range(10):
-                    self._pub_msg.throttle = self.DEFAULT_THROTTLE_VAL
-                    # self._publisher.publish(self._pub_msg)
-
-                self._is_back = True
+                self._back_count = 20
 
         if joy_steering_val > 0.0:
             self._pub_msg.steering = int(self.DEFAULT_STEERING_VAL + joy_steering_val * (self.MAX_STEERING_VEL - self.DEFAULT_STEERING_VAL))
         else:
             self._pub_msg.steering = int(self.DEFAULT_STEERING_VAL + joy_steering_val * (self.DEFAULT_STEERING_VAL - self.MIN_STEERING_VEL))
-
-        # self._publisher.publish(self._pub_msg)
-
 
     def publishMsg(self):
         """Publish ROS 2 topic, Run this in every loops."""
