@@ -54,6 +54,8 @@ class JoyControler(Node):
             self._pub_msg.throttle = int(self.DEFAULT_THROTTLE_VAL + joy_throttle_val * (self.DEFAULT_THROTTLE_VAL - self.MIN_ACCELL_VEL))
             if self._is_back == False:
                 self._back_count = 20
+                self._is_back = True
+
 
         if joy_steering_val > 0.0:
             self._pub_msg.steering = int(self.DEFAULT_STEERING_VAL + joy_steering_val * (self.MAX_STEERING_VEL - self.DEFAULT_STEERING_VAL))
