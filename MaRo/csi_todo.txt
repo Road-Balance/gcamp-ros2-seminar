@@ -1,0 +1,10 @@
+https://automaticaddison.com/getting-started-with-opencv-in-ros-2-foxy-fitzroy-python/
+
+ros2 pkg create --build-type ament_python csi_camera --dependencies rclpy image_transport cv_bridge sensor_msgs std_msgs opencv2
+
+
+entry_points={
+    'console_scripts': [
+      'img_publisher = cv_basics.webcam_pub:main',
+    ],
+},
