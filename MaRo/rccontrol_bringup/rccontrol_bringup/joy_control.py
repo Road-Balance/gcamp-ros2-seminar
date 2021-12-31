@@ -62,18 +62,6 @@ class JoyControler(Node):
         else:
             self._pub_msg.steering = int(self.DEFAULT_STEERING_VAL + joy_steering_val * (self.DEFAULT_STEERING_VAL - self.MIN_STEERING_VEL))
 
-    def publishMsg(self):
-        """Publish ROS 2 topic, Run this in every loops."""
-        throttle = self._value_dict['throttle']
-        steering = self._value_dict['steering']
-
-        print(f'currently:\taccell vel {throttle}\t steering vel {steering}')
-
-        self._pub_msg.throttle = self._value_dict['throttle']
-        self._pub_msg.steering = self._value_dict['steering']
-
-        self._publisher.publish(self._pub_msg)
-
 def main(args=None):
     """Do enter into this main function first."""
     rclpy.init(args=args)
