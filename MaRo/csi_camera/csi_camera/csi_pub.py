@@ -39,7 +39,7 @@ class CISImageNode(Node):
 
         self._publisher = self.create_publisher(Image, 'csi_image', 10)
 
-        timer_period = 0.1  # seconds
+        timer_period = 0.01  # seconds
         self._timer = self.create_timer(timer_period, self.timer_callback)
 
         self._cap = cv2.VideoCapture(gstreamer_pipeline(flip_method=2), cv2.CAP_GSTREAMER)
@@ -51,7 +51,7 @@ class CISImageNode(Node):
 
         if ret:
             # image to a ROS 2 image message
-            self._publisher.publish(self._cv_bridge.cv2_to_imgmsg(frame))
+            self._publisher.publish(self._cv_bridge.cv2_to_imgmsg(frame, encoding="bgr8"))
 
             # Display the message on the console
             self.get_logger().info('Publishing video frame')

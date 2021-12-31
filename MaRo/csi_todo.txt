@@ -8,3 +8,6 @@ entry_points={
       'img_publisher = cv_basics.webcam_pub:main',
     ],
 },
+
+ros2 run image_view image_view --ros-args --remap /image:=/csi_image
+
