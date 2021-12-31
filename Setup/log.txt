@@ -1,0 +1,2 @@
+# '\r': command not found 
+sed -i 's/\r$//' filename
