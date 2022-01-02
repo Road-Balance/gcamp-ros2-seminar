@@ -44,7 +44,7 @@ def generate_launch_description():
         arguments = "0 0 0 0 0 0 base_footprint laser_frame".split()
     )
 
-    # rplidar node
+    # slam_toolbox execution
     slam_pkg_path = os.path.join(get_package_share_directory('slam_toolbox'))
     slam_launch_path = os.path.join(slam_pkg_path, 'launch', 'online_async_launch.py')
 
