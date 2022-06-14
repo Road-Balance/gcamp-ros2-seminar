@@ -52,14 +52,14 @@ def generate_launch_description():
         # launch_arguments={'slam_params_file': slam_params_file}.items()
     )
 
-    rviz_config_dir = os.path.join(demo_pkg, 'rviz', 'rplidar_view.rviz')
-    rviz2 = Node(
-            package='rviz2',
-            node_executable='rviz2',
-            name='rviz2',
-            arguments=['-d', rviz_config_dir],
-            output='screen'
-        )
+    # rviz_config_dir = os.path.join(demo_pkg, 'rviz', 'rplidar_view.rviz')
+    # rviz2 = Node(
+    #         package='rviz2',
+    #         node_executable='rviz2',
+    #         name='rviz2',
+    #         arguments=['-d', rviz_config_dir],
+    #         output='screen'
+    #     )
 
     return LaunchDescription([
         rplidar_ros,
