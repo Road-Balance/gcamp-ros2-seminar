@@ -42,11 +42,6 @@ def generate_launch_description():
         arguments=["0", "0", "0", "0", "0", "0", "base_footprint", "laser_frame"]
     )
 
-    rplidar_driver = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource(os.path.join(rplidar_ros2_pkg, 'launch', 'rplidar_a3_launch.py')),
-        launch_arguments={'serial_port': serial_port}.items()
-    )
-
     # Rviz
     demo_pkg = os.path.join(get_package_share_directory('demo_pkg'))
     slam_params_file = os.path.join(demo_pkg, 'config', 'mapper_params_online_async_laser_only.yaml')
@@ -65,7 +60,7 @@ def generate_launch_description():
         )
 
     return LaunchDescription([
-        rplidar_driver,
+        rplidar_ros,
         rf2o_laser_odometry,
         slam_toolbox_with_rviz,
         # rviz2,
