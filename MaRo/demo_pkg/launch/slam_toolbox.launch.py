@@ -64,6 +64,7 @@ def generate_launch_description():
     return LaunchDescription([
         rplidar_ros,
         rf2o_laser_odometry,
+        static_transform_publisher,
         slam_toolbox_with_rviz,
         # rviz2,
     ])
