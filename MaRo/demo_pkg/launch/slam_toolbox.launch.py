@@ -25,7 +25,7 @@ def generate_launch_description():
         package='rf2o_laser_odometry',
         node_executable='rf2o_laser_odometry_node',
         name='rf2o_laser_odometry',
-        output='log',
+        output='screen',
         parameters=[{
             'laser_scan_topic' : '/scan',
             'odom_topic' : '/odom_rf2o',
@@ -44,12 +44,12 @@ def generate_launch_description():
 
     # Rviz
     slam_toolbox = os.path.join(get_package_share_directory('slam_toolbox'))
-    demo_pkg = os.path.join(get_package_share_directory('demo_pkg'))
+    # demo_pkg = os.path.join(get_package_share_directory('demo_pkg'))
     
-    slam_params_file = os.path.join(demo_pkg, 'config', 'mapper_params_online_async.yaml')
+    slam_params_file = os.path.join(slam_toolbox, 'config', 'mapper_params_online_async.yaml')
     slam_toolbox_with_rviz = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(os.path.join(slam_toolbox, 'launch', 'online_async_launch.py')),
-        launch_arguments={'slam_params_file': slam_params_file}.items()
+        # launch_arguments={'slam_params_file': slam_params_file}.items()
     )
 
     rviz_config_dir = os.path.join(demo_pkg, 'rviz', 'rplidar_view.rviz')
