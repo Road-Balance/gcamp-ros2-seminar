@@ -7,7 +7,6 @@ url : https://github.com/autorope/donkeycar/blob/dev/donkeycar/parts/actuator.py
 """
 
 import time
-import asyncio
 
 class PCA9685:
     """
@@ -77,59 +76,30 @@ class Vehicle(object):
         self._steering_servo = PCA9685(channel=1, busnum=1)
         print("Steering Controller Awaked!!")
 
-        self._loop = asyncio.get_event_loop()
-
         self._name = name
-        self.speed_pulse = 350
-        self.steering_pulse = 400
 
-    # TODO : Calibration
-    def control(self): # , speed, steering_angle
-        # self.speed_pulse = speed
-        # self.steering_pulse = steering_angle
+
+    def control(self, speed, steering_angle):
+        speed_pulse = speed
+        steering_pulse = steering_angle
 
         print(
             "speed_pulse : "
-            + str(self.speed_pulse)
+            + str(speed_pulse)
             + " / "
             + "steering_pulse : "
-            + str(self.steering_pulse)
+            + str(steering_pulse)
         )
 
-        self._throttle.run(self.speed_pulse)
-        self._steering_servo.run(self.steering_pulse)
+        self._throttle.run(speed_pulse)
+        self._steering_servo.run(steering_pulse)
 
-    def get_input(self):
-
-        self.speed_pulse = int(input(f"Current Th : {self.speed_pulse} Throttle : "))
-        self.steering_pulse = int(input(f"Currnet Angle : {self.steering_pulse} Angle : "))
-
-    async def control_loop(self):
-        while True:
-            await self._loop.run_in_executor(None, self.control)
-
-    async def input_loop(self):
-        while True:
-            await self._loop.run_in_executor(None, self.get_input)
-
-    def run(self):
-        try:
-            asyncio.ensure_future(self.control_loop())
-            asyncio.ensure_future(self.input_loop())
-            self._loop.run_forever()
-        except Exception as e:
-            print(e)
-        finally:
-            print("Done...")
 
 if __name__ == "__main__":
 
     myCar = Vehicle("donkey_ros")
-    myCar.run()
 
-    # while True:
-    #     # th = int(input("Throttle : "))
-    #     an = int(input("Angle : "))
-    #     # myCar.control(th, 350)
-    #     myCar.control(350, an)
-    #     # myCar.control(th, an)
+    while True:
+        throttle_in = int(input("Throttle : "))
+        angle_in = int(input("Angle : "))
+        myCar.control(throttle_in, angle_in)
