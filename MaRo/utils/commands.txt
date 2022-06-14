@@ -1,0 +1,40 @@
+cd ~/ros2_seminar_ws
+cbp rplidar_ros
+roseloq
+
+sudo chmod 777 /dev/ttyUSB0
+
+# 터미널 1 - Jetson
+ros2 run rplidar_ros rplidarNode
+# 터미널 2 - Jetson
+ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0  world laser_frame
+# 터미널 3 - Host
+rviz2
+
+$ cd ~/ros2_seminar_ws
+$ cbp rf2o_laser_odometry
+$ roseloq
+
+# RF2O Odom
+
+# 터미널 1
+$ ros2 run rplidar_ros rplidarNode
+# 터미널 2
+$ ros2 launch rf2o_laser_odometry rf2o_laser_odometry.launch.py
+# 터미널 3
+$ ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base_footprint laser_frame  
+# 터미널 4
+$ rviz2
+
+# SLAM TOOLBOX
+
+# 터미널 1
+ros2 run rplidar_ros rplidarNode
+# 터미널 2
+ros2 launch rf2o_laser_odometry rf2o_laser_odometry.launch.py
+# 터미널 3
+ros2 run tf2_ros static_transform_publisher 0 0 0 0 0 0 base_footprint laser_frame  
+# 터미널 4
+ros2 launch slam_toolbox online_async_launch.py
+# 터미널 5
+rviz2
