@@ -53,7 +53,7 @@ class JoyControler(Node):
         if self._back_calib:
             self.get_logger().info(f"=== Back Calib ===")
             self._back_count += 1
-            if self._back_count > 25:
+            if self._back_count > 25 and self._back_count <= 50:
                 self._pub_msg.throttle = self.DEFAULT_THROTTLE_VAL - 30
             elif self._back_count > 50:
                 self._pub_msg.throttle = self.DEFAULT_THROTTLE_VAL
