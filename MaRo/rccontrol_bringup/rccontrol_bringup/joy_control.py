@@ -51,6 +51,7 @@ class JoyControler(Node):
     def timer_callback(self):
 
         if self._back_calib:
+            self.get_logger().info(f"=== Back Calib ===")
             self._pub_msg.throttle = self.DEFAULT_THROTTLE_VAL
             self._back_count += 1
             if self._back_count > 10:
@@ -68,13 +69,13 @@ class JoyControler(Node):
 
     def joy_callback(self, joy_msg):
 
-        pub_throttle = self.DEFAULT_THROTTLE_VAL
-        pub_steering = self.DEFAULT_STEERING_VAL
+        self._pub_msg.throttle = self.DEFAULT_THROTTLE_VAL
+        self._pub_msg.steering = self.DEFAULT_STEERING_VAL
 
         joy_throttle_val = joy_msg.axes[1]
         joy_steering_val = joy_msg.axes[3]
 
-        if joy_throttle_val < 0.05 and joy_throttle_val > -0.05:
+        if joy_throttle_val < 0.1 and joy_throttle_val > -0.1:
             pass
         elif joy_throttle_val > 0.0:
             self._pub_msg.throttle = int(self.FORWARD_VEL + joy_throttle_val * self.forward_gain)
@@ -86,7 +87,7 @@ class JoyControler(Node):
             if self._is_back == False:
                 self._back_calib = True
 
-        if joy_steering_val < 0.05 and joy_steering_val > -0.05:
+        if joy_steering_val < 0.1 and joy_steering_val > -0.1:
             pass
         elif joy_steering_val > 0.0:
             self._pub_msg.steering = int(self.DEFAULT_STEERING_VAL + joy_steering_val * self.steering_left_gain)
