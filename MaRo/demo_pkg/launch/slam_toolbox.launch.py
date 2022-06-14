@@ -16,14 +16,14 @@ def generate_launch_description():
     # Rplidar Driver
     rplidar_ros = Node(
             package='rplidar_ros',
-            executable='rplidarNode',
+            node_executable='rplidarNode',
             name='rplidarNode',
             output='screen'
         )
 
     rf2o_laser_odometry = Node(
         package='rf2o_laser_odometry',
-        executable='rf2o_laser_odometry_node',
+        node_executable='rf2o_laser_odometry_node',
         name='rf2o_laser_odometry',
         output='log',
         parameters=[{
@@ -38,7 +38,7 @@ def generate_launch_description():
 
     static_transform_publisher = Node(
         package = "tf2_ros", 
-        executable = "static_transform_publisher",
+        node_executable = "static_transform_publisher",
         arguments=["0", "0", "0", "0", "0", "0", "base_footprint", "laser_frame"]
     )
 
@@ -58,7 +58,7 @@ def generate_launch_description():
     rviz_config_dir = os.path.join(demo_pkg, 'rviz', 'rplidar_view.rviz')
     rviz2 = Node(
             package='rviz2',
-            executable='rviz2',
+            node_executable='rviz2',
             name='rviz2',
             arguments=['-d', rviz_config_dir],
             output='screen'
