@@ -72,3 +72,6 @@ echo -e "alias roseloq='source /opt/ros/eloquent/setup.bash && source ~/ros2_sem
 echo -e "source /usr/share/colcon_cd/function/colcon_cd.sh" | sudo tee -a ~/.bashrc
 echo -e "export _colcon_cd_root=~/ros2_seminar_ws" | sudo tee -a ~/.bashrc
 
+echo -e "${GREEN}==== Install jtop ====${NC}"
+
+sudo -H pip3 install -U jetson-stats
